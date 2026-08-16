@@ -9,19 +9,19 @@ class CalculusOperations:
 
     OPERATIONS = {
         "1": "Imagem f(x)",
-        "2": "Zeros da Função",
+        "2": "Function Zeros",
         "3": "Limite",
         "4": "Limites Laterais",
         "5": "Continuidade",
         "6": "Reta Tangente (via Limite)",
         "7": "Derivada",
         "8": "Reta Tangente (via Derivada)",
-        "9": "Extremos e Pontos de Inflexão",
+        "9": "Extrema and Inflection Points",
         "10": "Primitiva",
-        "11": "Cálculo da Constante C",
+        "11": "Calculate Constant C",
         "12": "Integral Definido",
-        "13": "Série de Taylor",
-        "14": "Polinómio de Taylor",
+        "13": "Taylor Series",
+        "14": "Taylor Polynomial",
     }
 
     # ---------- UI helpers ----------
@@ -84,7 +84,7 @@ class CalculusOperations:
         transformations = standard_transformations + (implicit_multiplication_application, convert_xor)
         expr = parse_expr(text, transformations=transformations, local_dict={'x': x})
         if x not in expr.free_symbols and not expr.is_number:
-            raise ValueError("a função tem de estar em função de x.")
+            raise ValueError("the function must be in terms of x.")
         return x, expr
 
     @staticmethod
@@ -105,7 +105,7 @@ class CalculusOperations:
                 point = CalculusOperations._to_num(p_entry.get())
                 result_label.config(text=f"f({point}) = {f.subs(x, point)}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -119,7 +119,7 @@ class CalculusOperations:
                 x, f = CalculusOperations._parse_func(f_entry.get())
                 result_label.config(text=f"Zeros: {sp.solve(f, x)}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -135,7 +135,7 @@ class CalculusOperations:
                 point = CalculusOperations._to_num(p_entry.get())
                 result_label.config(text=f"lim (x→{point}) f(x) = {sp.limit(f, x, point)}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -154,7 +154,7 @@ class CalculusOperations:
                 text = f"lim (x→{point}⁻) f(x) = {lim_left}\nlim (x→{point}⁺) f(x) = {lim_right}"
                 result_label.config(text=text)
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -179,18 +179,18 @@ class CalculusOperations:
                     f"lim (x→{point}⁻) f(x) = {lim_left}\n"
                     f"lim (x→{point}⁺) f(x) = {lim_right}\n"
                     f"f({point}) = {value}\n"
-                    f"{'✓ Função CONTÍNUA' if continuous else '✗ Função NÃO contínua'} em x = {point}"
+                    f"{'✓ Function is CONTINUOUS' if continuous else '✗ Function is NOT continuous'} at x = {point}"
                 )
                 result_label.config(text=text)
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
     @staticmethod
     def lim_tangent_line_calculator(parent):
         _, f_entry = CalculusOperations._make_func_entry(parent, "x**2")
-        _, p_entry = CalculusOperations._make_value_entry(parent, "Ponto de tangência (x) =", "1")
+        _, p_entry = CalculusOperations._make_value_entry(parent, "Tangency point (x) =", "1")
         result_label = CalculusOperations._make_result_label(parent)
 
         def calculate():
@@ -202,7 +202,7 @@ class CalculusOperations:
                 tangent = sp.simplify(m * (x - point) + f_point)
                 result_label.config(text=f"declive m = {m}\nReta tangente: y = {tangent}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -216,14 +216,14 @@ class CalculusOperations:
                 x, f = CalculusOperations._parse_func(f_entry.get())
                 result_label.config(text=f"f'(x) = {sp.diff(f, x)}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
     @staticmethod
     def derivative_tangent_line_calculator(parent):
         _, f_entry = CalculusOperations._make_func_entry(parent, "x**2")
-        _, p_entry = CalculusOperations._make_value_entry(parent, "Ponto de tangência (x) =", "1")
+        _, p_entry = CalculusOperations._make_value_entry(parent, "Tangency point (x) =", "1")
         result_label = CalculusOperations._make_result_label(parent)
 
         def calculate():
@@ -236,7 +236,7 @@ class CalculusOperations:
                 tangent = sp.simplify(m * (x - point) + f_point)
                 result_label.config(text=f"f'(x) = {df}\ndeclive m = {m}\nReta tangente: y = {tangent}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -252,21 +252,21 @@ class CalculusOperations:
                 zeros = sp.solve(df1, x)
                 df2 = sp.diff(df1, x)
 
-                lines = [f"Pontos críticos: {zeros}", ""]
+                lines = [f"Critical points: {zeros}", ""]
                 for point in zeros:
                     second = df2.subs(x, point)
                     y = f.subs(x, point)
                     if second > 0:
-                        kind = "MÍNIMO"
+                        kind = "MINIMUM"
                     elif second < 0:
-                        kind = "MÁXIMO"
+                        kind = "MAXIMUM"
                     else:
-                        kind = "ponto de inflexão"
+                        kind = "inflection point"
                     lines.append(f"({point}, {y}) → {kind}")
 
                 result_label.config(text="\n".join(lines))
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -281,7 +281,7 @@ class CalculusOperations:
                 C = sp.symbols('C')
                 result_label.config(text=f"F(x) = {sp.integrate(f, x)} + C")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -301,10 +301,10 @@ class CalculusOperations:
                 integral = sp.integrate(f, x) + C
                 c_value = sp.solve(integral.subs(x, point) - value, C)
                 if not c_value:
-                    raise ValueError("não foi possível calcular C.")
+                    raise ValueError("could not calculate C.")
                 result_label.config(text=f"C = {c_value[0]}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
@@ -322,14 +322,14 @@ class CalculusOperations:
                 b = CalculusOperations._to_num(b_entry.get())
                 result_label.config(text=f"∫ f(x) dx [{a}, {b}] = {sp.integrate(f, (x, a, b))}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
     @staticmethod
     def taylor_series_calculator(parent):
         _, f_entry = CalculusOperations._make_func_entry(parent, "exp(x)")
-        _, p_entry = CalculusOperations._make_value_entry(parent, "Ponto de expansão (x0) =", "0")
+        _, p_entry = CalculusOperations._make_value_entry(parent, "Expansion point (x0) =", "0")
         _, n_entry = CalculusOperations._make_value_entry(parent, "Ordem (n) =", "5")
         result_label = CalculusOperations._make_result_label(parent)
 
@@ -338,16 +338,16 @@ class CalculusOperations:
                 x, f = CalculusOperations._parse_func(f_entry.get())
                 x0 = CalculusOperations._to_num(p_entry.get())
                 n = int(CalculusOperations._to_num(n_entry.get()))
-                result_label.config(text=f"Série de Taylor: {f.series(x, x0, n)}")
+                result_label.config(text=f"Taylor Series: {f.series(x, x0, n)}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 
     @staticmethod
     def taylor_series_polynomial_calculator(parent):
         _, f_entry = CalculusOperations._make_func_entry(parent, "exp(x)")
-        _, p_entry = CalculusOperations._make_value_entry(parent, "Ponto de expansão (x0) =", "0")
+        _, p_entry = CalculusOperations._make_value_entry(parent, "Expansion point (x0) =", "0")
         _, n_entry = CalculusOperations._make_value_entry(parent, "Ordem (n) =", "5")
         result_label = CalculusOperations._make_result_label(parent)
 
@@ -357,9 +357,9 @@ class CalculusOperations:
                 x0 = CalculusOperations._to_num(p_entry.get())
                 n = int(CalculusOperations._to_num(n_entry.get()))
                 poly = f.series(x, x0, n).removeO()
-                result_label.config(text=f"Polinómio de Taylor: {poly}")
+                result_label.config(text=f"Taylor Polynomial: {poly}")
             except (sp.SympifyError, TypeError, ValueError) as e:
-                messagebox.showerror("Erro", f"Entrada inválida: {e}")
+                messagebox.showerror("Error", f"Invalid input: {e}")
 
         CalculusOperations._make_calc_button(parent, calculate)
 

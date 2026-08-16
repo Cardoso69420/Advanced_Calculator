@@ -9,40 +9,40 @@ class ProbabilityOperations:
     """Probability and Combinatorics operations module"""
 
     OPERATIONS = {
-        "1": "Permutação Simples (n!)",
-        "2": "Permutação com Repetição",
-        "3": "Arranjo Simples",
-        "4": "Arranjo com Repetição",
-        "5": "Combinação com Repetição",
-        "6": "Elemento do Triângulo de Pascal",
-        "7": "Soma da Linha do Triângulo de Pascal",
-        "8": "Gerar Triângulo de Pascal",
-        "9": "Permutações Desarranjadas (!n)",
-        "10": "Princípio das Gavetas (Dirichlet)",
-        "11": "Números de Stirling (2º Género)",
-        "12": "Probabilidade Clássica (Laplace)",
-        "13": "Axiomas de Kolmogorov",
-        "14": "Evento Complementar",
-        "15": "União de Eventos",
-        "16": "Inclusão-Exclusão (3 eventos)",
-        "17": "Diferença de Conjuntos",
-        "18": "De Morgan (nenhum evento ocorre)",
-        "19": "Probabilidade Condicional",
-        "20": "Regra da Multiplicação",
-        "21": "Eventos Independentes",
-        "22": "Lei da Probabilidade Total",
-        "23": "Teorema de Bayes",
-        "24": "Valor Esperado (Discreto)",
-        "25": "Variância (Discreta)",
-        "26": "Probabilidade de Intervalo (Contínua)",
-        "27": "Valor Esperado (Contínuo)",
-        "28": "Variância (Contínua)",
-        "29": "Desvio Padrão",
-        "30": "Distribuição de Bernoulli",
-        "31": "Distribuição Binomial",
-        "32": "Distribuição de Poisson",
-        "33": "Distribuição Geométrica",
-        "34": "Z-score (Normal Padrão)",
+        "1": "Simple Permutation (n!)",
+        "2": "Permutation with Repetition",
+        "3": "Simple Arrangement",
+        "4": "Arrangement with Repetition",
+        "5": "Combination with Repetition",
+        "6": "Pascal's Triangle Element",
+        "7": "Pascal's Triangle Row Sum",
+        "8": "Generate Pascal's Triangle",
+        "9": "Derangements (!n)",
+        "10": "Pigeonhole Principle",
+        "11": "Stirling Numbers (2nd Kind)",
+        "12": "Classical Probability (Laplace)",
+        "13": "Kolmogorov Axioms",
+        "14": "Complementary Event",
+        "15": "Union of Events",
+        "16": "Inclusion-Exclusion (3 events)",
+        "17": "Set Difference",
+        "18": "De Morgan (neither event occurs)",
+        "19": "Conditional Probability",
+        "20": "Multiplication Rule",
+        "21": "Independent Events",
+        "22": "Law of Total Probability",
+        "23": "Bayes' Theorem",
+        "24": "Expected Value (Discrete)",
+        "25": "Variance (Discrete)",
+        "26": "Interval Probability (Continuous)",
+        "27": "Expected Value (Continuous)",
+        "28": "Variance (Continuous)",
+        "29": "Standard Deviation",
+        "30": "Bernoulli Distribution",
+        "31": "Binomial Distribution",
+        "32": "Poisson Distribution",
+        "33": "Geometric Distribution",
+        "34": "Z-score (Standard Normal)",
     }
 
     # ---------- UI helpers ----------
@@ -93,7 +93,7 @@ class ProbabilityOperations:
     def _to_int(s):
         value = sp.sympify(s)
         if not value.is_number or int(value) != value:
-            raise ValueError("é necessário um número inteiro.")
+            raise ValueError("an integer is required.")
         return int(value)
 
     @staticmethod
@@ -113,13 +113,13 @@ class ProbabilityOperations:
         transformations = standard_transformations + (implicit_multiplication_application, convert_xor)
         expr = parse_expr(s, transformations=transformations, local_dict={'x': x})
         if not expr.free_symbols.issubset({x}):
-            raise ValueError("usa apenas a variável 'x'.")
+            raise ValueError("use only the variable 'x'.")
         return x, expr
 
     @staticmethod
     def _validate_prob(value, name="probabilidade"):
         if value < 0 or value > 1:
-            raise ValueError(f"{name} tem de estar entre 0 e 1.")
+            raise ValueError(f"{name} must be between 0 and 1.")
 
     # ---------- generic form builder ----------
 
@@ -139,8 +139,8 @@ class ProbabilityOperations:
                 result = compute_fn(values)
                 text = format_fn(result) if format_fn else f"Resultado: {result}"
                 result_label.config(text=text)
-            except (ValueError, TypeError, ZeroDivisionError, sp.SympifyError, IndexError) as err:
-                messagebox.showerror("Erro", f"Entrada inválida: {err}")
+            except (ValueError, TypeErrorr, ZeroDivisionErrorr, sp.SympifyErrorr, IndexErrorr) as err:
+                messagebox.showerror("Error", f"Invalid input: {err}")
 
         ProbabilityOperations._make_calc_button(parent, calculate)
 
@@ -153,7 +153,7 @@ class ProbabilityOperations:
         def compute(v):
             n = P._to_int(v[0])
             if n < 0:
-                raise ValueError("n deve ser ≥ 0.")
+                raise ValueError("n must be ≥ 0.")
             return math.factorial(n)
 
         P._build_generic(parent, [("n =", "5")], compute, lambda r: f"n! = {r}")
@@ -172,9 +172,9 @@ class ProbabilityOperations:
 
         P._build_generic(
             parent,
-            [("n =", "5"), ("Repetições (separadas por vírgula) =", "2,1")],
+            [("n =", "5"), ("Repetitions (comma-separated) =", "2,1")],
             compute,
-            lambda r: f"Permutação com repetição = {r}",
+            lambda r: f"Permutation with repetition = {r}",
             widths=[15, 25],
         )
 
@@ -198,7 +198,7 @@ class ProbabilityOperations:
             p = P._to_int(v[1])
             return n ** p
 
-        P._build_generic(parent, [("n =", "5"), ("p =", "2")], compute, lambda r: f"Arranjo com repetição = {r}")
+        P._build_generic(parent, [("n =", "5"), ("p =", "2")], compute, lambda r: f"Arrangement with repetition = {r}")
 
     @staticmethod
     def repetition_combination_calculator(parent):
@@ -209,7 +209,7 @@ class ProbabilityOperations:
             p = P._to_int(v[1])
             return math.comb(n + p - 1, p)
 
-        P._build_generic(parent, [("n =", "5"), ("p =", "2")], compute, lambda r: f"Combinação com repetição = {r}")
+        P._build_generic(parent, [("n =", "5"), ("p =", "2")], compute, lambda r: f"Combination with repetition = {r}")
 
     @staticmethod
     def pascal_element_calculator(parent):
@@ -239,7 +239,7 @@ class ProbabilityOperations:
         def compute(v):
             lines = P._to_int(v[0])
             if lines < 1 or lines > 15:
-                raise ValueError("usa entre 1 e 15 linhas (para caber no ecrã).")
+                raise ValueError("use between 1 and 15 rows (to fit on screen).")
             triangle = []
             for n in range(lines):
                 triangle.append([math.comb(n, k) for k in range(n + 1)])
@@ -248,7 +248,7 @@ class ProbabilityOperations:
         def fmt(rows):
             return "\n".join(" ".join(str(x) for x in row) for row in rows)
 
-        P._build_generic(parent, [("Nº de linhas =", "6")], compute, fmt)
+        P._build_generic(parent, [("Number of rows =", "6")], compute, fmt)
 
     @staticmethod
     def derangement_calculator(parent):
@@ -275,7 +275,7 @@ class ProbabilityOperations:
             parent,
             [("Objetos (m) =", "10"), ("Gavetas (k) =", "3")],
             compute,
-            lambda r: f"Pior caso = {r} objetos garantem uma gaveta com ≥2.",
+            lambda r: f"Worst case = {r} items guarantee a bin with ≥2.",
         )
 
     @staticmethod
@@ -299,12 +299,12 @@ class ProbabilityOperations:
             fav = P._to_float(v[0])
             total = P._to_float(v[1])
             if total == 0:
-                raise ValueError("total não pode ser zero.")
+                raise ValueError("total cannot be zero.")
             return fav / total
 
         P._build_generic(
             parent,
-            [("Resultados favoráveis =", "5"), ("Resultados totais =", "20")],
+            [("Favorable outcomes =", "5"), ("Total outcomes =", "20")],
             compute,
             lambda r: f"P(A) = {r:.6f}",
         )
@@ -321,7 +321,7 @@ class ProbabilityOperations:
             parent,
             [("Probabilidade a validar =", "0.5")],
             compute,
-            lambda r: "Válida (0 ≤ P ≤ 1)" if r else "Inválida (fora de [0, 1])",
+            lambda r: "Valid (0 ≤ P ≤ 1)" if r else "Invalid (outside [0, 1])",
         )
 
     @staticmethod
@@ -447,7 +447,7 @@ class ProbabilityOperations:
             priors = [float(x) for x in P._to_list(v[0])]
             likelihoods = [float(x) for x in P._to_list(v[1])]
             if len(priors) != len(likelihoods):
-                raise ValueError("as listas devem ter o mesmo tamanho.")
+                raise ValueError("the lists must have the same length.")
             for p in priors:
                 P._validate_prob(p, "P(B_i)")
             for l in likelihoods:
@@ -456,8 +456,8 @@ class ProbabilityOperations:
 
         P._build_generic(
             parent,
-            [("Priors P(B_i), separados por vírgula =", "0.2,0.3,0.5"),
-             ("Likelihoods P(A|B_i), separados por vírgula =", "0.4,0.6,0.2")],
+            [("Priors P(B_i), comma-separated =", "0.2,0.3,0.5"),
+             ("Likelihoods P(A|B_i), comma-separated =", "0.4,0.6,0.2")],
             compute,
             lambda r: f"P(A) = {r}",
             widths=[30, 30],
@@ -472,15 +472,15 @@ class ProbabilityOperations:
             priors = [float(x) for x in P._to_list(v[1])]
             likelihoods = [float(x) for x in P._to_list(v[2])]
             if len(priors) != len(likelihoods):
-                raise ValueError("as listas devem ter o mesmo tamanho.")
+                raise ValueError("the lists must have the same length.")
             denom = sum(p * l for p, l in zip(priors, likelihoods))
             if denom == 0:
-                raise ValueError("o denominador não pode ser zero.")
+                raise ValueError("the denominator cannot be zero.")
             return (priors[k] * likelihoods[k]) / denom
 
         P._build_generic(
             parent,
-            [("Índice k (começa em 0) =", "0"),
+            [("Index k (starts at 0) =", "0"),
              ("Priors P(B_i) =", "0.2,0.3,0.5"),
              ("Likelihoods P(A|B_i) =", "0.4,0.6,0.2")],
             compute,
@@ -496,14 +496,14 @@ class ProbabilityOperations:
             xs = [float(x) for x in P._to_list(v[0])]
             ps = [float(x) for x in P._to_list(v[1])]
             if len(xs) != len(ps):
-                raise ValueError("as listas devem ter o mesmo tamanho.")
+                raise ValueError("the lists must have the same length.")
             if abs(sum(ps) - 1) > 1e-9:
-                raise ValueError("a soma das probabilidades deve ser 1.")
+                raise ValueError("the probabilities must sum to 1.")
             return sum(x * p for x, p in zip(xs, ps))
 
         P._build_generic(
             parent,
-            [("Valores x_i =", "1,2,3"), ("Probabilidades P(X=x_i) =", "0.2,0.5,0.3")],
+            [("Values x_i =", "1,2,3"), ("Probabilities P(X=x_i) =", "0.2,0.5,0.3")],
             compute,
             lambda r: f"E[X] = {r}",
             widths=[25, 25],
@@ -517,16 +517,16 @@ class ProbabilityOperations:
             xs = [float(x) for x in P._to_list(v[0])]
             ps = [float(x) for x in P._to_list(v[1])]
             if len(xs) != len(ps):
-                raise ValueError("as listas devem ter o mesmo tamanho.")
+                raise ValueError("the lists must have the same length.")
             if abs(sum(ps) - 1) > 1e-9:
-                raise ValueError("a soma das probabilidades deve ser 1.")
+                raise ValueError("the probabilities must sum to 1.")
             mean = sum(x * p for x, p in zip(xs, ps))
             e_sq = sum((x ** 2) * p for x, p in zip(xs, ps))
             return e_sq - mean ** 2
 
         P._build_generic(
             parent,
-            [("Valores x_i =", "1,2,3"), ("Probabilidades P(X=x_i) =", "0.2,0.5,0.3")],
+            [("Values x_i =", "1,2,3"), ("Probabilities P(X=x_i) =", "0.2,0.5,0.3")],
             compute,
             lambda r: f"Var(X) = {r}",
             widths=[25, 25],
@@ -562,7 +562,7 @@ class ProbabilityOperations:
 
         P._build_generic(
             parent,
-            [("f(x) =", "3*x**2"), ("Limite inferior =", "0"), ("Limite superior =", "1")],
+            [("f(x) =", "3*x**2"), ("Lower bound =", "0"), ("Upper bound =", "1")],
             compute,
             lambda r: f"E[X] = {r}",
             widths=[25, 10, 10],
@@ -582,7 +582,7 @@ class ProbabilityOperations:
 
         P._build_generic(
             parent,
-            [("f(x) =", "3*x**2"), ("Limite inferior =", "0"), ("Limite superior =", "1")],
+            [("f(x) =", "3*x**2"), ("Lower bound =", "0"), ("Upper bound =", "1")],
             compute,
             lambda r: f"Var(X) = {r}",
             widths=[25, 10, 10],
@@ -595,10 +595,10 @@ class ProbabilityOperations:
         def compute(v):
             var = P._to_float(v[0])
             if var < 0:
-                raise ValueError("a variância não pode ser negativa.")
+                raise ValueError("variance cannot be negative.")
             return sp.sqrt(var)
 
-        P._build_generic(parent, [("Variância =", "4")], compute, lambda r: f"σ = {r}")
+        P._build_generic(parent, [("Variance =", "4")], compute, lambda r: f"σ = {r}")
 
     @staticmethod
     def bernoulli_distribution_calculator(parent):
@@ -645,7 +645,7 @@ class ProbabilityOperations:
             k = P._to_int(v[0])
             lam = P._to_float(v[1])
             if lam <= 0:
-                raise ValueError("λ tem de ser maior que zero.")
+                raise ValueError("λ must be greater than zero.")
             prob = (lam ** k) * math.exp(-lam) / math.factorial(k)
             return prob, lam, lam
 
@@ -664,7 +664,7 @@ class ProbabilityOperations:
             k = P._to_int(v[0])
             p = P._to_float(v[1])
             if p <= 0 or p > 1:
-                raise ValueError("p tem de estar entre 0 (exclusive) e 1.")
+                raise ValueError("p must be between 0 (exclusive) and 1.")
             prob = ((1 - p) ** (k - 1)) * p
             return prob, 1 / p, (1 - p) / (p ** 2)
 
@@ -684,7 +684,7 @@ class ProbabilityOperations:
             mu = P._to_float(v[1])
             sigma = P._to_float(v[2])
             if sigma == 0:
-                raise ValueError("σ não pode ser zero.")
+                raise ValueError("σ cannot be zero.")
             return (x - mu) / sigma, 0, 1
 
         P._build_generic(
