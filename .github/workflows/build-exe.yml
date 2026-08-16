@@ -21,7 +21,7 @@ jobs:
 
       - name: Build exe
         run: |
-          pyinstaller --onefile --windowed --name Calculator Calculator.py
+          pyinstaller --onefile --windowed --name Calculator src/Calculator.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
