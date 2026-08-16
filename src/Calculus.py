@@ -8,18 +8,18 @@ class CalculusOperations:
     """Calculus operations module"""
 
     OPERATIONS = {
-        "1": "Imagem f(x)",
+        "1": "Image f(x)",
         "2": "Function Zeros",
-        "3": "Limite",
-        "4": "Limites Laterais",
-        "5": "Continuidade",
-        "6": "Reta Tangente (via Limite)",
-        "7": "Derivada",
-        "8": "Reta Tangente (via Derivada)",
+        "3": "Limit",
+        "4": "Side Limits",
+        "5": "Continuity",
+        "6": "Tangent Line (via Limit)",
+        "7": "Derivative",
+        "8": "Tangent Line (via Derivative)",
         "9": "Extrema and Inflection Points",
-        "10": "Primitiva",
+        "10": "Primitive",
         "11": "Calculate Constant C",
-        "12": "Integral Definido",
+        "12": "Defined Integral",
         "13": "Taylor Series",
         "14": "Taylor Polynomial",
     }
