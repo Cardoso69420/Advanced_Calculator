@@ -15,8 +15,9 @@ class MathCalculator:
     def __init__(self, root):
         self.root = root
         self.root.title("Math Calculator")
-        self.root.geometry("600x500")
-        self.root.resizable(False, False)
+        self.root.geometry("600x650")
+        self.root.minsize(600, 650)
+        self.root.resizable(True, True)
         
         # Module definitions
         self.modules = {
