@@ -124,9 +124,26 @@ class MathCalculator:
         title.pack(side="left", padx=20, pady=10, expand=True)
         
         # Operations scroll area
-        operations_frame = tk.Frame(self.current_frame, bg="#f0f0f0")
-        operations_frame.pack(fill="both", expand=True, padx=20, pady=20)
-        
+        canvas = tk.Canvas(self.current_frame, bg="#f0f0f0", highlightthickness=0)
+        scrollbar = tk.Scrollbar(self.current_frame, orient="vertical", command=canvas.yview)
+        operations_frame = tk.Frame(canvas, bg="#f0f0f0")
+
+        operations_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        canvas.create_window((0, 0), window=operations_frame, anchor="nw", width=560)
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        def _on_mousewheel(event):
+            canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        canvas.bind_all("<MouseWheel>", _on_mousewheel)
+
+        canvas.pack(side="left", fill="both", expand=True, padx=(20, 0), pady=20)
+        scrollbar.pack(side="right", fill="y", pady=20, padx=(0, 20))
+
         # Create buttons for each operation
         for op_key, op_name in module_class.OPERATIONS.items():
             btn = tk.Button(
@@ -177,9 +194,26 @@ class MathCalculator:
         )
         title.pack(side="left", padx=20, pady=10, expand=True)
         
-        # Content frame
-        content_frame = tk.Frame(self.current_frame, bg="#f0f0f0")
-        content_frame.pack(fill="both", expand=True, padx=20, pady=20)
+        # Content frame (scrollable, for operations with many input fields)
+        content_canvas = tk.Canvas(self.current_frame, bg="#f0f0f0", highlightthickness=0)
+        content_scrollbar = tk.Scrollbar(self.current_frame, orient="vertical", command=content_canvas.yview)
+        content_frame = tk.Frame(content_canvas, bg="#f0f0f0")
+
+        content_frame.bind(
+            "<Configure>",
+            lambda e: content_canvas.configure(scrollregion=content_canvas.bbox("all"))
+        )
+
+        content_canvas.create_window((0, 0), window=content_frame, anchor="nw", width=560)
+        content_canvas.configure(yscrollcommand=content_scrollbar.set)
+
+        def _on_mousewheel(event):
+            content_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+        content_canvas.bind_all("<MouseWheel>", _on_mousewheel)
+
+        content_canvas.pack(side="left", fill="both", expand=True, padx=(20, 0), pady=20)
+        content_scrollbar.pack(side="right", fill="y", pady=20, padx=(0, 20))
         
         # Get and display calculator
         calculator = module_class.get_calculator(operation_id)
