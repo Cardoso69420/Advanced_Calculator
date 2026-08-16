@@ -282,7 +282,7 @@ Calculate and display result
 - Empty input → ValueError caught
 - Non-numeric input → ValueError caught
 - Division by zero → ZeroDivisionError caught
-- Sympy errors → Exception caught (placeholders)
+- Sympy errors → Exception caught
 ```
 
 ## Performance Considerations
