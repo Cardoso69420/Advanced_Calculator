@@ -16,7 +16,7 @@ class CalculusOperations:
         "6": "Tangent Line (via Limit)",
         "7": "Derivative",
         "8": "Tangent Line (via Derivative)",
-        "9": "Extrema and Inflection Points",
+        "9": "Extreme and Inflection Points",
         "10": "Primitive",
         "11": "Calculate Constant C",
         "12": "Defined Integral",
