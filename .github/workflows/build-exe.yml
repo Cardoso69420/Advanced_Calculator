@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: windows-latest
@@ -23,8 +26,9 @@ jobs:
         run: |
           pyinstaller --onefile --windowed --name Calculator src/Calculator.py
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
         with:
-          name: Calculator-exe
-          path: dist/Calculator.exe
+          tag_name: build-${{ github.run_number }}
+          name: Calculator build ${{ github.run_number }}
+          files: dist/Calculator.exe
