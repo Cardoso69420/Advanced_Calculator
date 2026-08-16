@@ -60,9 +60,9 @@ You'll see:
 - Most complex module
 
 ### Probability and Combinatorics ✅ COMPLETE
-**6 operations fully implemented:**
-- Combinatorics library integrated
-- Good foundation structure
+**34 operations fully implemented:**
+- Combinatorics, classical/axiomatic probability, conditional probability, Bayes, discrete and continuous distributions
+- Full sympy integration
 
 ---
 
@@ -303,9 +303,9 @@ result_label.config(text=results_text)
 ✅ Complex Numbers:           10/10 operations (100%)
 ✅ Sequences and Series:      8/8  operations (100%)
 ✅ Calculus:                  14/14 operations (100%)
-✅ Probability:               6/6  operations (100%)
+✅ Probability:               34/34 operations (100%)
 
-Total:                        45/45 operations (100%)
+Total:                        73/73 operations (100%)
 ```
 
 ---

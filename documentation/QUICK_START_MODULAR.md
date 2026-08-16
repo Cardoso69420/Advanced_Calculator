@@ -32,18 +32,18 @@ Each math topic is a **separate file** with a **separate class**:
 | `ComplexNumbers.py` | `ComplexNumbersOperations` | 10 complex number operations ✅ |
 | `Sequences.py` | `SequencesOperations` | 8 sequence operations ✅ |
 | `Calculus.py` | `CalculusOperations` | 14 calculus operations ✅ |
-| `Probability.py` | `ProbabilityOperations` | 6 probability operations ✅ |
+| `Probability.py` | `ProbabilityOperations` | 34 probability operations ✅ |
 
 ---
 
 ## Currently Working
 
-✅ **All Modules** - All 45 operations fully implemented and working:
+✅ **All Modules** - All 73 operations fully implemented and working:
 1. Geometry and Trigonometry (7 operations)
 2. Complex Numbers (10 operations)
 3. Sequences and Series (8 operations)
 4. Calculus (14 operations)
-5. Probability and Combinatorics (6 operations)
+5. Probability and Combinatorics (34 operations)
 
 ---
 
@@ -307,13 +307,13 @@ result_label.config(text=results)
 ## Project Status
 
 ```
-Total Operations: 45/45 (100%)
+Total Operations: 73/73 (100%)
 
 ✅ Geometry:           7/7  (100%)
 ✅ Complex Numbers:    10/10 (100%)
 ✅ Sequences:          8/8  (100%)
 ✅ Calculus:           14/14 (100%)
-✅ Probability:        6/6  (100%)
+✅ Probability:        34/34 (100%)
 
 Status: All modules complete and working
 ```
